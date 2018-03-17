@@ -43,6 +43,15 @@ button {
 			"stats main"
 			"stats main";
 }
+#footer {
+   background-color:blue;
+   height:40px;
+   position:relative;
+   bottom:0;
+   width:100%;
+   text-align:center;
+   padding:10px;
+}
 .stats {
    grid-area: stats;
    background-color: #777;
