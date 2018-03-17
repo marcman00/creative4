@@ -58,14 +58,15 @@ button {
 .main {
    grid-area:main;
    padding:50px;
+   padding-top:10px;
 /* width:700px; */
 }
 /* For the town area */
 .town {
    display: grid;
- 
-   grid-template-areas: "inn smithy"
-			"jousting jousting";
+   padding-top:10px;
+   grid-template-areas: "jousting jousting"
+			"inn smithy";
    grid-row-gap:10px;
 }
 .innSmall {
@@ -91,6 +92,12 @@ button {
    grid-template-columns: 375px 50px 170px;
    grid-template-rows:60px;
    grid-gap:6px 15px; /* row gap, column gap */
+}
+.joustingBig3 {
+   display:grid;
+   grid-template-columns:300px 1fr;
+   grid-column-gap:10px;
+   padding:25px;
 }
 /* For inn */
 .innBig {

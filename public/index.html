@@ -31,7 +31,7 @@
 	 <div class="main">
 
 	  <div v-if="location == 'town'">
-	   <div class="title"><h2>Hail, {{player.name}}</h2></div>
+	   <div class="title"><h2 style="margin-bottom:0;">Hail, {{player.name}}</h2><p style="margin-top:0;"><i>Click a picture to travel there</i></p></div>
 
 	   <div class="town" align='center'>
 	
@@ -57,11 +57,10 @@
 		<div></div>
 		<div>Enemy Health: {{enemy.currentHp}} / {{enemy.maxHp}}<br>Enemy Attack: {{enemy.attack}}</div>
 	 </div>
-	<div width=300 style="padding:25px;">
-	<p><i>Sword</i> beats<i> Shield</i></p>
-	<p><i>Shield</i> beats<i> Lance</i></p>
-	<p><i>Lance</i> beats<i> Sword</i></p>
-			     </div>
+	<div class="joustingBig3"><div><p><i>Sword</i> beats<i> Shield</i></p><p><i>Shield</i> beats<i> Lance</i></p>
+					<p><i>Lance</i> beats<i> Sword</i></p></div>
+		<div>{{combatMessage}}</div>
+		</div>
 	   </div>
 
 	<div v-else-if="location=='victory'">

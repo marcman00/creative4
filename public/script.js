@@ -10,6 +10,7 @@ var app = new Vue({
     default_maxHp:12,
     default_defense:0,
     descriptions: [],
+    combatMessage:'',
   },
 
    created:function() {
@@ -168,18 +169,34 @@ var app = new Vue({
 	// 1=sword, 2=shield, 3=lance
 	let enemyAttack=1+Math.floor(Math.random() * 3); // returns a number between 1 and 3
 	this.enemyAttackType=enemyAttack;
-	if (type==1 && enemyAttack==2)
+	if (type==1 && enemyAttack==2) {
 		this.enemy.currentHp=this.enemy.currentHp-this.player.attack;
-	else if (type==2 && enemyAttack==3)
+		this.combatMessage="Your sword got around the enemy's shield, dealing "+this.player.attack+" damage!";
+	}
+	else if (type==2 && enemyAttack==3) {
 		this.enemy.currentHp=this.enemy.currentHp-this.player.attack;
-	else if (type==3 && enemyAttack==1)
+		this.combatMessage="Your shield knocked away the enemy's lance, dealing "+this.player.attack+" damage!";
+	}
+	else if (type==3 && enemyAttack==1) {
 		this.enemy.currentHp=this.enemy.currentHp-this.player.attack;
-	else if (type==2 && enemyAttack==1)
+		this.combatMessage="Your lance stabbed the enemy, hitting them for "+this.player.attack+" damage!";
+	}
+	else if (type==2 && enemyAttack==1) {
 		this.player.currentHp=this.player.currentHp-this.enemy.attack;
-	else if (type==3 && enemyAttack==2)
+		this.combatMessage="The enemy's sword got the better of your shield. You took "+(this.enemy.attack-this.player.defense)+" damage!";
+	}
+	else if (type==3 && enemyAttack==2) {
 		this.player.currentHp=this.player.currentHp-this.enemy.attack;
-	else if (type==1 && enemyAttack==3)
+		this.combatMessage="The enemy's shield knocked your lance off balance, dealing "+(this.enemy.attack-this.player.defense)+
+		" damage to you!";
+	}	
+	else if (type==1 && enemyAttack==3) {
 		this.player.currentHp=this.player.currentHp-this.enemy.attack;
+		this.combatMessage="The enemy's lancing skills were better than your swordsmanship. You received "+
+			(this.enemy.attack-this.player.defense) + " damage!";
+	}
+	else
+		this.combatMessage="You both chose the same weapon this round, resulting in a draw!"
 
 	this.updateEnemy();
 
@@ -187,6 +204,7 @@ var app = new Vue({
 	   this.location="death";
 	}
 	else if (this.enemy.currentHp<=0) {
+		this.combatMessage='';
 		this.location="victory";
 		this.player.battlesWon++;
 		this.player.gold+=5;
@@ -217,6 +235,8 @@ var app = new Vue({
 	  this.player.currentHp=this.player.maxHp;
 	  this.location='town';
 	  this.updatePlayer();
+	  let audio = new Audio('sound/purchase.mp3');
+	  audio.play();
 	}
   },
   upgrade:function(type) {
