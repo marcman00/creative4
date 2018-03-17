@@ -5,42 +5,6 @@ body {
     background: #f3f3f3;
 }
 
-/* List */
-
-ul {
-    list-style: none;
-}
-
-li {
-    background: #fff;
-    width: 500px;
-    min-height: 30px;
-    padding: 10px;
-    margin-bottom: 10px;
-    font-size: 1em;
-    display: flex;
-    align-items: center;
-}
-
-.delete {
-    display: none;
-    margin-left: auto;
-}
-
-li:hover .delete {
-    display: block;
-}
-
-label {
-    width: 400px;
-}
-
-
-
-.completed {
-    text-decoration: line-through;
-}
-
 /* Form */
 
 input[type=checkbox] {
@@ -74,7 +38,7 @@ button {
 /* Overall layout */
 .layout {
    display:grid;
-
+   grid-template-columns: 200px 1fr;
    grid-template-areas: "title title"
 			"stats main"
 			"stats main";
@@ -93,6 +57,7 @@ button {
 }
 .main {
    grid-area:main;
+   padding:50px;
 /* width:700px; */
 }
 /* For the town area */
@@ -123,7 +88,7 @@ button {
 }
 .joustingBig2 {
    display:grid;
-   grid-template-columns: 375px 50px 150px;
+   grid-template-columns: 375px 50px 170px;
    grid-template-rows:60px;
    grid-gap:6px 15px; /* row gap, column gap */
 }

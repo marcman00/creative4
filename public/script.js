@@ -10,8 +10,6 @@ var app = new Vue({
     default_maxHp:12,
     default_defense:0,
     descriptions: [],
-    //show: 'all',
-    //drag: {},
   },
 
    created:function() {
@@ -47,9 +45,7 @@ var app = new Vue({
 	this.player=response.data;
 	this.name=this.player.name;
 	this.location=this.player.location;
-	console.log("Name: "+this.player.name);
-	console.log("Location: "+this.player.location);
-	console.log("Hp: "+this.player.currentHp);
+
      if (this.player.name.length>0) {
          this.location=this.player.location;
 	 this.getEnemy();
@@ -88,9 +84,10 @@ var app = new Vue({
 	   return true;
 	}).catch(err => { });
 
+	let randomName=this.makeRandomName();
 	// Initialize first enemy
 	axios.post("/api/enemy", {
-	  name:'Sir Evil', // At some point, use random names
+	  name:randomName,
 	  defense:0,
 	  attack:this.default_attack-1,
 	  maxHp:this.default_maxHp/2,
@@ -169,7 +166,7 @@ var app = new Vue({
 	audio.play();
 
 	// 1=sword, 2=shield, 3=lance
-	let enemyAttack=1+Math.floor(Math.random() * 3);
+	let enemyAttack=1+Math.floor(Math.random() * 3); // returns a number between 1 and 3
 	this.enemyAttackType=enemyAttack;
 	if (type==1 && enemyAttack==2)
 		this.enemy.currentHp=this.enemy.currentHp-this.player.attack;
@@ -196,9 +193,10 @@ var app = new Vue({
 		this.enemyAttackType=0;
 	
 		let attackmod=this.player.battlesWon%2;
+		let randomName=this.makeRandomName();
 		// create a new, stronger enemy
 		axios.post("/api/enemy", {
-	 	name:'Sir Evil'+this.player.battlesWon, // At some point, use random names
+	 	name:randomName, // At some point, use random names
 	  	defense:0,
 	  	attack:this.enemy.attack+attackmod,
 	  	maxHp:this.enemy.maxHp+1,
@@ -222,22 +220,38 @@ var app = new Vue({
 	}
   },
   upgrade:function(type) {
+	let audio = new Audio('sound/purchase.mp3');
+	
 	if (type==='attack' && this.player.gold>=5) {
 		this.player.attack++;
 		this.player.gold-=5;
 		this.updatePlayer();
+		audio.play();
 	}
 	else if (type==='maxHp' && this.player.gold>=4) {
 		this.player.maxHp+=2;
 		this.player.currentHp+=2;
 		this.player.gold-=4;
 		this.updatePlayer();
+		audio.play();
 	}
 	else if (type==='defense' && this.player.gold>=10) {
 		this.player.defense++;
 		this.player.gold-=10;
 		this.updatePlayer();
+		audio.play();
 	}
+	},
+	makeRandomName:function() {
+	  let first=['Sir','Count','Duke','Drake','Baron','','','Prince']
+	  let second=['William','Arthur','Gawain','Francis','John','Henry','Robin','Lancelot','Rowan']
+	  let third=['II','III','IV','the Terrible','the Great','the Brave','the Strong']
+	  let firstChoice=Math.floor(Math.random() * first.length); 
+	  let secondChoice=Math.floor(Math.random() * second.length);
+	  let thirdChoice=Math.floor(Math.random() * third.length); 
+
+	  let enemyName=first[firstChoice]+' '+second[secondChoice]+' '+third[thirdChoice];
+	  return enemyName;
 	}
 }
 });

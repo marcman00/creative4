@@ -20,7 +20,7 @@
 
 	<div v-else class="layout">
 	 <div class="stats">
-	 <p><i>Sir {{player.name}}</i></p>	
+	 <p><i>{{player.name}}</i></p>	
 	 <p>Attack: {{ player.attack }}</p>
 	 <p>Defense: {{ player.defense }}</p>
 	 <p>Health: {{player.currentHp}}/{{player.maxHp}}</p><br>
@@ -31,7 +31,7 @@
 	 <div class="main">
 
 	  <div v-if="location == 'town'">
-	   <div class="title"><h2>Hail, Sir {{player.name}}</h2></div>
+	   <div class="title"><h2>Hail, {{player.name}}</h2></div>
 
 	   <div class="town" align='center'>
 	
@@ -46,7 +46,7 @@
           </div>
 
 	 <div v-else-if="location == 'jousting'">
-		<div class="title"><h2>{{player.name}} vs. Sir Evil</h2></div>
+		<div class="title"><h2>{{player.name}} vs. {{enemy.name}}</h2></div>
 	 <div class="joustingBig">
 	  	<div><img v-on:click="attack(1)" width=100 src="images/sword.png"></div>
 		<div><img v-on:click="attack(2)" width=100 src="images/shield.png"></div>
