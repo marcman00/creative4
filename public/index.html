@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css"/>
+    <title>Jousting Tournament</title>
+  </head>
+  <body>
+    <div id="app">
+	<div id='header'><h1 align="center">Jousting Tournament</h1></div>
+
+	<div style="width:600px; padding-left:250px;" v-if="location == 'newPlayer'">
+	<h3>Hail, good citizen!</h3>
+	<p>Congratulations! The King has decided you will join him during the next royal jousting tournament.
+	 Details will be given as you go, don't worry. What shall we call you?<br>
+	<div style="float:right"><input type="text" v-model="name">
+	<button v-on:click="newPlayer()">Sign Contract</button></div><br>
+	<p style="font-size:12px;">Note*: The King is not responsible for any harm or possible death that may befell you during the tournament.</p>
+	</div>
+
+	<div v-else class="layout">
+	 <div class="stats">
+	 <p><i>Sir {{player.name}}</i></p>	
+	 <p>Attack: {{ player.attack }}</p>
+	 <p>Defense: {{ player.defense }}</p>
+	 <p>Health: {{player.currentHp}}/{{player.maxHp}}</p><br>
+	 <p>Gold: {{player.gold}}</p>
+	 <p>Battles Won: {{player.battlesWon}}</p><br><br>
+	 <div v-if="location != 'death'"><button v-on:click="retire()">Retire</button></div></div>
+
+	 <div class="main">
+
+	  <div v-if="location == 'town'">
+	   <div class="title"><h2>Hail, Sir {{player.name}}</h2></div>
+
+	   <div class="town" align='center'>
+	
+	    <div class="innSmall" v-on:click="goInn()">
+	    <b>Inn</b><br><img width=200 src='images/inn.png'><p>{{descriptions[1]}}</p> </div>
+	    <div class="smithySmall" v-on:click="goSmithy()">
+	    <b>Blacksmith</b><br><img width=200 src='images/smithy.png'><p>{{descriptions[2]}}</p> </div>
+	    <div class="joustingSmall" v-on:click="goJousting()">
+	    <b>Jousting Tournament</b><br><img width=400 src='images/jousting.png'><p>{{descriptions[3]}}</p> </div>
+	
+	   </div>
+          </div>
+
+	 <div v-else-if="location == 'jousting'">
+		<div class="title"><h2>{{player.name}} vs. Sir Evil</h2></div>
+	 <div class="joustingBig">
+	  	<div><img v-on:click="attack(1)" width=100 src="images/sword.png"></div>
+		<div><img v-on:click="attack(2)" width=100 src="images/shield.png"></div>
+		<div><img v-on:click="attack(3)" width=100 src="images/lance.png"></div>
+		<div></div><div><img width=100 v-bind:src="recentAttack"></div></div>
+	<div class="joustingBig2">
+		<div style="text-align:center;"><i>(click a weapon to attack with it)</i></div>
+		<div></div>
+		<div>Enemy Health: {{enemy.currentHp}} / {{enemy.maxHp}}<br>Enemy Attack: {{enemy.attack}}</div>
+	 </div>
+	<div width=300 style="padding:25px;">
+	<p><i>Sword</i> beats<i> Shield</i></p>
+	<p><i>Shield</i> beats<i> Lance</i></p>
+	<p><i>Lance</i> beats<i> Sword</i></p>
+			     </div>
+	   </div>
+
+	<div v-else-if="location=='victory'">
+		<div align="center" class="title"><h2>You won the duel!</h2></div>
+		<div align="center"><button v-on:click="location='town'">Return to town</button></div></div>
+
+	<div v-else-if="location=='inn'">
+		<div class="title"><h2>Ye Olde Tavern</h2></div>
+		<div class="innBig">
+		 <div><img width=400 src='images/inn.png'></div>
+		 <div><p>Fully restore yourself for 2 gold?</p><br><button v-on:click="rest()">Yes</button>
+		 <br><br><button v-on:click="goTown()">Another time</button></div>
+	</div></div>
+
+	<div v-else-if="location=='death'">
+		<div class="title"><h2>You have died...</h2></div>
+		<button v-on:click="retire()">End</button>
+	</div>
+
+	<div v-else-if="location=='smithy'">
+		<div class="title"><h2>Ye Olde Smithy</h2></div>
+		<div class="smithyBig">
+		 <div><img width=400 src="images/smithy.png"></div>
+		 <div>{{descriptions[4]}}<br><i>Price: 5 gold</i><br><button v-on:click="upgrade('attack')">Purchase</button></div>
+		 <div>{{descriptions[5]}}<br><i>Price: 4 gold</i><br><button v-on:click="upgrade('maxHp')">Purchase</button></div>
+		 <div></div>
+		 <div>{{descriptions[6]}}<br><i>Price: 10 gold</i><br><button v-on:click="upgrade('defense')">Purchase</button></div>
+		 <div><br><br><br><br><button v-on:click="goTown()">Return to town</button></div>
+		</div>
+	</div>
+	</div><!--main-->
+       </div><!--layout-->
+	
+</div><!--app-->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js" integrity="sha256-pU9euBaEcVl8Gtg+FRYCtin2vKLN8sx5/4npZDmY2VA=" crossorigin="anonymous"></script>
+    <script src="/script.js"></script>
+  </body>
+</html>

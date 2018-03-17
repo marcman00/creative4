@@ -1,0 +1,141 @@
+body {
+    font-family: 'Arvo';
+    font-size: 16px;
+    /*padding: 20px 100px 0px 100px;*/
+    background: #f3f3f3;
+}
+
+/* List */
+
+ul {
+    list-style: none;
+}
+
+li {
+    background: #fff;
+    width: 500px;
+    min-height: 30px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+}
+
+.delete {
+    display: none;
+    margin-left: auto;
+}
+
+li:hover .delete {
+    display: block;
+}
+
+label {
+    width: 400px;
+}
+
+
+
+.completed {
+    text-decoration: line-through;
+}
+
+/* Form */
+
+input[type=checkbox] {
+    transform: scale(1.5);
+    margin-right: 10px;
+}
+
+input[type=text] {
+    font-size: 1em;
+}
+
+button {
+    font-family: 'Arvo';
+    font-size: 1em;
+}
+
+/* Controls */
+
+.controls {
+    margin-top: 20px;
+}
+/*****************************************************************************/
+#header {
+   background-color: blue;
+   padding:10px;
+   
+   color:white;
+   height:auto;
+   width:100%;
+}
+/* Overall layout */
+.layout {
+   display:grid;
+
+   grid-template-areas: "title title"
+			"stats main"
+			"stats main";
+}
+.stats {
+   grid-area: stats;
+   background-color: #777;
+   width:200px;
+   padding:15px;
+   padding-right:0;
+}
+.title {
+   grid-area:title;
+   height:60px;
+   text-align:center;
+}
+.main {
+   grid-area:main;
+/* width:700px; */
+}
+/* For the town area */
+.town {
+   display: grid;
+ 
+   grid-template-areas: "inn smithy"
+			"jousting jousting";
+   grid-row-gap:10px;
+}
+.innSmall {
+   grid-area: inn;
+   width:220px;
+}
+.smithySmall {
+   grid-area: smithy;
+   width:220px;
+}
+.joustingSmall {
+   grid-area: jousting;
+}
+/* For jousting */
+.joustingBig {
+   display:grid;
+   grid-template-columns: 125px 125px 125px 50px 150px;
+   grid-template-rows:150px;
+   grid-gap:6px 15px; /* row gap, column gap */
+}
+.joustingBig2 {
+   display:grid;
+   grid-template-columns: 375px 50px 150px;
+   grid-template-rows:60px;
+   grid-gap:6px 15px; /* row gap, column gap */
+}
+/* For inn */
+.innBig {
+  display:grid;	
+  grid-template-columns:440px 1fr;
+}
+/* For inn */
+.smithyBig {
+  display:grid;	
+  grid-template-columns:440px 200px 200px;
+  grid-template-rows:120px 120px;
+  grid-row-gap:20px;
+}
