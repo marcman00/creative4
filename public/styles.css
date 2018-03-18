@@ -120,3 +120,8 @@ button {
   grid-template-rows:120px 120px;
   grid-row-gap:20px;
 }
+.scores {
+   display:grid;
+   grid-template-columns:100px 100px;
+   grid-template-rows:50px 50px 50px 50px 50px 50px;
+}

@@ -3,6 +3,7 @@ var app = new Vue({
   data: {
     player: [],
     enemy:[],
+    scores:[],
     enemyAttackType:0,
     name: '',
     location: 'newPlayer',
@@ -25,6 +26,7 @@ var app = new Vue({
 	this.descriptions[6]='Enhance your armor, increasing your max health by 2' // maxHp
       // Check if a player save file already exists
       this.getPlayer();
+      this.getScores();
    },
 
   computed: {
@@ -58,7 +60,7 @@ var app = new Vue({
    },
 
   getEnemy:function() {
-	axios.get("/api/enemy").then(response => {
+     axios.get("/api/enemy").then(response => {
      this.enemy=response.data;
      return true;
     }).catch(err => {});
@@ -202,6 +204,7 @@ var app = new Vue({
 
 	if (this.player.currentHp<=0) {
 	   this.location="death";
+	   this.addScore();
 	}
 	else if (this.enemy.currentHp<=0) {
 		this.combatMessage='';
@@ -272,6 +275,22 @@ var app = new Vue({
 
 	  let enemyName=first[firstChoice]+' '+second[secondChoice]+' '+third[thirdChoice];
 	  return enemyName;
-	}
+	},
+
+   getScores:function() {
+	axios.get("/api/scores").then( response => {
+	   this.scores=response.data;
+	}).catch(err => {});
+   },
+	
+	
+   addScore:function() {
+	axios.post("/api/scores", {
+	  name: this.player.name,
+	  score: this.player.battlesWon,
+	}).then( response => {
+	   this.getScores();
+	}).catch( err => {console.log("error");});
+   }
 }
 });

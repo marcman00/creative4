@@ -10,6 +10,7 @@ app.use(express.static('public'))
 
 let player = {};
 let enemy={};
+let highScores=[];
 //let id = 0;
 
 app.get('/api/player', (req, res) => {
@@ -18,6 +19,10 @@ app.get('/api/player', (req, res) => {
 
 app.get('/api/enemy', (req, res) => {
   res.send(enemy);
+});
+
+app.get('/api/scores', (req, res) => {
+  res.send(highScores);
 });
 
 app.post('/api/player', (req, res) => {
@@ -32,6 +37,15 @@ app.post('/api/enemy', (req, res) => {
 	defense:req.body.defense, currentHp:req.body.currentHp,
 	maxHp:req.body.maxHp, image:req.body.image};
   res.send(enemy);
+});
+
+app.post("/api/scores", (req,res) => {
+   let newScore= {name:req.body.name, score:req.body.score};
+   highScores.push(newScore);
+   highScores.sort(function(a,b) { return a.score < b.score });
+   if (highScores.length>5)
+     highScores.splice(5);
+   res.send(highScores);
 });
 /*
 app.put('/api/player/:stat', (req,res) => {

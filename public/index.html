@@ -7,6 +7,7 @@
   </head>
   <body>
     <div id="app">
+
 	<div id='header'><h1 align="center">Jousting Tournament</h1></div>
 
 	<div style="width:600px; padding-left:250px;" v-if="location == 'newPlayer'">
@@ -27,6 +28,7 @@
 	 <p>Gold: {{player.gold}}</p>
 	 <p>Battles Won: {{player.battlesWon}}</p><br><br>
 	 <div v-if="location != 'death'"><button v-on:click="retire()">Retire</button></div></div>
+
 
 	 <div class="main">
 
@@ -75,10 +77,20 @@
 		 <br><br><button v-on:click="goTown()">Another time</button></div>
 	</div></div>
 
-	<div v-else-if="location=='death'">
+	<div v-else-if="location=='death'" align="center">
 		<div class="title"><h2>You have died...</h2></div>
+
 		<button v-on:click="retire()">End</button>
-	</div>
+		<br><br><h2>Hall of Fame</h2><hr style="border-color:black; height:1px;">
+		  <div style="display:grid; grid-template-columns:1fr 200px 125px 1fr;"><div></div>
+			<div><h3>Name</h3></div><div><h3>Battles Won</h3><div></div></div></div>
+			<hr style="border-color:black; height:1px;">
+		  <div style="display:grid; grid-template-columns:1fr 200px 125px 1fr;" v-for="entry in scores">
+		    <div></div><div><h4>{{entry.name}}</h4></div><div><h4>{{entry.score}}</h4></div><div></div></div>
+
+	</div>		
+	</div><!--centered-->
+	</div><!--death-->
 
 	<div v-else-if="location=='smithy'">
 		<div class="title"><h2>Ye Olde Smithy</h2></div>
