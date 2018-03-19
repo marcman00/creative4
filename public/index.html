@@ -94,10 +94,10 @@
 
 		<div align="center"><button v-on:click="retire()">End</button>
 		<br><br><h2>Hall of Fame</h2><hr style="border-color:black; height:1px;"></div>
-		  <div style="scores"><div></div>
+		  <div class="scores"><div></div>
 			<div><h3>Name</h3></div><div><h3>Battles Won</h3><div></div></div></div>
 			<hr style="border-color:black; height:1px;">
-		  <div style="scores" v-for="entry in scores">
+		  <div class="scores" v-for="entry in scores">
 		    <div></div><div><h4>{{entry.name}}</h4></div><div><h4>{{entry.score}}</h4></div><div></div></div>		
 	</div>	
 	</div><!--centered-->
