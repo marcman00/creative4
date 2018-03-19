@@ -117,6 +117,7 @@ var app = new Vue({
 	   location: this.location,
 	}).then(response => {
 	this.getPlayer();
+		
 	   return true;
 	}).catch(err => { });
    },
@@ -152,6 +153,7 @@ var app = new Vue({
    goSmithy:function() {
 	this.location='smithy';
 	this.updatePlayer();
+
 	},
    goJousting:function() {
 	this.location='jousting';
